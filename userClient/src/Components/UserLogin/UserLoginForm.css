@@ -25,6 +25,8 @@ body {
     border-radius: 10px;
     color: white;
     width: 350px !important;
+    padding-left: 35px !important;
+    padding-right: 35px !important;
 }
 
 .loginInput:focus{
@@ -60,7 +62,7 @@ body {
 .google-login{
     background-color: #2D3748;
     border-radius: 10px;
-    font-size: larger;
+    font-size: medium;
     font-weight: bolder;
     width: 350px;
     border: none;

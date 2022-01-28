@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import './UserLoginForm.css'
 import validate from './LoginValidation'
+import axios from 'axios'
 
 function LoginForm() {
 
@@ -23,12 +24,25 @@ const handleSubmit = (e) => {
     setIsSubmit(true)
 }
 
-useEffect( () => {
-    console.log(formErrors);
-    if(Object.keys(formErrors) === 0 && isSubmit){
+useEffect( async() => {
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+            try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }
+            const { data } = await axios.post('/login', {
+                email: formValues.email,
+                password: formValues.password
+            },config)
+
+            navigate('/')
+        }
+        catch (err) {
+        }
     }
 },[formErrors])
-
 
 
   return (
@@ -49,9 +63,9 @@ useEffect( () => {
                         className="form-control loginInput" 
                         id="floatingInput" 
                         onChange={handleChange}
-                        placeholder="Email Address" 
+                        placeholder="Username / Email" 
                         autoComplete='off' />
-                    <label htmlFor='floatingInput'className='loginLabel'>Email Address</label>
+                    <label htmlFor='floatingInput'className='loginLabel'>Username / Email</label>
                     <p className='errors'> { formErrors.email } </p>
                 </div>
                 </div>

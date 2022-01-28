@@ -1,12 +1,8 @@
 const loginValidate = (values) =>{
     const errors = {}
-    const regex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/i
 
     if(!values.email){
-        errors.email = 'Email is required !'
-    }
-    else if(!regex.test(values.email)){
-        errors.email = 'This is not a valid email !'
+        errors.email = 'Username or Email is required !'
     }
     if(!values.password){
         errors.password = 'Password is required !'

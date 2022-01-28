@@ -31,7 +31,7 @@ module.exports.get = () =>{
 // const url = 'mongodb://localhost:27017/';
   
 // // Name of the database
-// const dbname = "conFusion";
+// const dbname = "wefix";
   
 // MongoClient.connect(url, (err,client)=>{
 //     if(!err) {
