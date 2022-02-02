@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import LoginNavBar from '../Components/LoginNavbar/LoginNavbar'
-import SignupForm from '../Components/UserSignup/Signup'
+import OTPVerifyForm from '../Components/VerifyOTP/VerifyOTP'
 
 
 function UserSignupPage(){
@@ -8,7 +8,7 @@ function UserSignupPage(){
     return(
         <Fragment>
             <LoginNavBar />
-            <SignupForm />
+            <OTPVerifyForm />
         </Fragment>
     )
 }

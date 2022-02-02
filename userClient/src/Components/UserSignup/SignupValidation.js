@@ -1,6 +1,6 @@
 const signupValidate = (values) =>{
     const errors = {}
-    const regex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/i
+    const regex = /^[a-zA-Z0-9_\-\.]+@[a-z]+\.[a-z]{2,3}/i
 
     if(!values.email){
         errors.email = 'Email is required !'

@@ -68,6 +68,10 @@ body {
     border: none;
 }
 
+.googleLogoImage {
+    width: 30px;
+}
+
 .google-login:hover{
     background-color: #2b323fb2;
 }
