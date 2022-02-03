@@ -41,8 +41,7 @@ module.exports = {
                 joinDate: userData.date
             }).then((res)=>{
                 resolve({
-                username: userData.username,
-                email: userData.email,
+                status: true
                 })
             })
         })

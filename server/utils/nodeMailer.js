@@ -3,7 +3,7 @@ const nodeMailer = require('nodemailer')
 
 function mailOTP(userEmail){
 
-    var OTP = parseInt(Math.random()*1000000)
+    var OTP = Math.floor(100000 + Math.random() * 900000)
     console.log(OTP);
     var mailRes
     var transporter = nodeMailer.createTransport({
@@ -33,17 +33,18 @@ function mailOTP(userEmail){
         html: output 
     }
 
-    transporter.sendMail(mailOptions,async (error, info) => {
+    transporter.sendMail(mailOptions,(error, info) => {
         if(error){
-            return console.log(error);
+            return console.log(error);;
         }
         else{
+            mailRes = true
             console.log('Message sent: ', info.messageId);
             console.log('Preview URL: ', nodeMailer.getTestMessageUrl(info));
-            return true
+            return mailRes
         }
     })
-    return {userOTP: OTP,userMail: userEmail, mailResponse: true}
+    return {userOtp: OTP,userMail: userEmail, mailResponse: true}
 }
 
 module.exports = mailOTP
