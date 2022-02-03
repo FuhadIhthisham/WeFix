@@ -152,7 +152,7 @@ function LoginForm() {
           <div className="col-12">
             <button type="button" className="btn btn-primary google-login">
               <img
-                src="../googleLogo.png"
+                src="../images/googleLogo.png"
                 className="mb-1 me-2 googleLogoImage"
                 alt="google"
               />

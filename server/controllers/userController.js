@@ -29,6 +29,9 @@ const userSignup = asyncHandler(async (req, res) => {
                 req.body.password = await bcryptjs.hash(req.body.password, salt)
                 userData = req.body
                 userOTP = mailRes.userOtp
+                setTimeout(() => {
+                    userOTP = null
+                }, 1000 * 60 * 2);
                 res.status(200).json({status: true})
             }
             else{

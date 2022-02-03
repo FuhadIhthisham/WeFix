@@ -1,4 +1,35 @@
 .navLogo {
     width: 120px;
     margin-left: 50px;
+    cursor: pointer;
+}
+
+.navBackground {
+    background-color: #0F3F51;
+}
+
+.post-button {
+    background-color: #1a5b729b !important;
+    border-radius: 30px;
+    height: 2.5em;
+    font-weight: 900;
+}
+
+.profilePic {
+    width: 30px;
+    height: 30px;
+}
+
+.notificationIcon {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.notificationCount {
+    margin-left: -10px;
+}
+
+.navDropDown{
+    margin-right: 3.5em;
 }

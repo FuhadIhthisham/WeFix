@@ -62,6 +62,7 @@ function VerifyOTP() {
           <div className="col-12 mt-3">
             <button className="btn btn-primary login-btn">Verify</button>
           </div>
+          {/* <div className="loginDescription">Resend OTP?</div> */}
         </form>
       </div>
     </>

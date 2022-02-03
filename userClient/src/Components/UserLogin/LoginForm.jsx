@@ -1,18 +1,20 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./UserLoginForm.css";
 import validate from "./LoginValidation";
 import axios from "axios";
 import { Alert } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 function LoginForm() {
-  const navigate = useNavigate();
 
   const initialValues = { email: "", password: "" };
   const [formValues, setformValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [authError, setAuthError] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,14 +27,7 @@ function LoginForm() {
     setIsSubmit(true);
   };
 
-  useEffect(() => {
-    const sessionToken = localStorage.getItem("sessionToken");
-    if (sessionToken) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  }, [navigate]);
+ 
 
   useEffect(async () => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -124,7 +119,7 @@ function LoginForm() {
           <div className="col-12">
             <button type="button" className="btn btn-primary google-login">
               <img
-                src="../googleLogo.png"
+                src="../images/googleLogo.png"
                 className="mb-1 me-2 googleLogoImage"
                 alt="google"
               />
