@@ -52,7 +52,7 @@ function VerifyOTP() {
               value={otpNumber.otp}
               onChange={handleChange}
               className="form-control otpInput"
-              id="floatingInput"
+              id="OtpInput"
               maxLength={6}
               autoComplete="off"
             />

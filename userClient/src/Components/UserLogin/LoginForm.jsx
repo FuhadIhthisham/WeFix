@@ -3,11 +3,12 @@ import "./UserLoginForm.css";
 import validate from "./LoginValidation";
 import axios from "axios";
 import { Alert } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+import { useDispatch } from "react-redux";
+import { add_user } from "../../Redux/userDetails/userDetailsSlice";
 
+function LoginForm() {
   const initialValues = { email: "", password: "" };
   const [formValues, setformValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -15,6 +16,8 @@ function LoginForm() {
   const [authError, setAuthError] = useState(false);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,8 +29,6 @@ function LoginForm() {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
-
- 
 
   useEffect(async () => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -46,7 +47,13 @@ function LoginForm() {
           config
         );
 
-        localStorage.setItem("sessionToken", JSON.stringify({token:data.token}));
+        dispatch(
+          add_user({
+            ...data,
+          })
+        );
+
+        localStorage.setItem("sessionToken", JSON.stringify({ data }));
         navigate("/");
       } catch (err) {
         setAuthError(err.response.data.message);
@@ -75,12 +82,12 @@ function LoginForm() {
                 name="email"
                 value={formValues.email}
                 className="form-control loginInput"
-                id="floatingInput"
+                id="email"
                 onChange={handleChange}
                 placeholder="Username / Email"
                 autoComplete="off"
               />
-              <label htmlFor="floatingInput" className="loginLabel">
+              <label htmlFor="email" className="loginLabel">
                 Username / Email
               </label>
               <p className="errors"> {formErrors.email} </p>

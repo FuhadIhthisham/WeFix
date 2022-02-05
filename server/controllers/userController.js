@@ -23,7 +23,6 @@ const userSignup = asyncHandler(async (req, res) => {
         }
         else{
             let mailRes = nodeMail(userEmail)
-            console.log(mailRes);
             if(mailRes.mailResponse){
                 const salt = await bcryptjs.genSalt(10)
                 req.body.password = await bcryptjs.hash(req.body.password, salt)
@@ -49,6 +48,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
     } else {
         res.status(400).json({message: 'OTP Incorrect'})
     }
+    userData = null
 })
 
 const userLogin = asyncHandler(async (req, res) => {

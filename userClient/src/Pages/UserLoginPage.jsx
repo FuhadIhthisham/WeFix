@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import LoginNavBar from '../Components/LoginNavbar/LoginNavbar'
+import LoginNavBar from '../Components/Navbar/Navbar'
 import LoginForm from '../Components/UserLogin/LoginForm'
 
 import { useNavigate } from "react-router-dom";

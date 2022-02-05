@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import LoginNavBar from '../Components/LoginNavbar/LoginNavbar'
+import LoginNavBar from '../Components/Navbar/Navbar'
 import SignupForm from '../Components/UserSignup/Signup'
 
 

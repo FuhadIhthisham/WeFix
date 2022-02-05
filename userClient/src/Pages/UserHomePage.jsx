@@ -1,14 +1,24 @@
-import React, { Fragment }  from "react";
-import LoginNavbar from "../Components/LoginNavbar/LoginNavbar";
-import UserHome from '../Components/UserHome/Home'
+import React, { Fragment, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import LoginNavbar from "../Components/Navbar/Navbar";
+import UserHome from "../Components/UserHome/Home";
 
-function UserHomePage () {
-    return (
-        <Fragment>
-            <LoginNavbar />
-            <UserHome />
-        </Fragment>
-    )
+function UserHomePage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const sessionToken = localStorage.getItem("sessionToken");
+    if (!sessionToken) {
+        navigate("/login");
+    }
+  }, []);
+
+  return (
+    <Fragment>
+      <LoginNavbar />
+      <UserHome />
+    </Fragment>
+  );
 }
 
-export default UserHomePage
+export default UserHomePage;

@@ -93,11 +93,11 @@ function LoginForm() {
                 className="form-control loginInput"
                 name="email"
                 onChange={handleChange}
-                id="floatingInput"
+                id="signupEmail"
                 placeholder="Email"
                 autoComplete="off"
               />
-              <label htmlFor="Email" className="loginLabel">
+              <label htmlFor="signupEmail" className="loginLabel">
                 Email
               </label>
               <p className="errors"> {signupErrors.email} </p>
@@ -147,7 +147,7 @@ function LoginForm() {
           </div>
 
           <div className="col-12 mb-3">
-            <button className="btn btn-primary login-btn">Login</button>
+            <button className="btn btn-primary login-btn">Signup</button>
           </div>
           <div className="col-12">
             <button type="button" className="btn btn-primary google-login">
