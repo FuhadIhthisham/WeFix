@@ -6,7 +6,7 @@ import signupValidate from "./SignupValidation";
 import "./Signup.css";
 import Alert from "@mui/material/Alert";
 
-function LoginForm() {
+function SignupForm() {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -165,4 +165,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default SignupForm;

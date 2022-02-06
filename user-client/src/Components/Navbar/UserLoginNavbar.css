@@ -5,7 +5,25 @@
 }
 
 .navBackground {
+    background-color: #0F3F51 !important;
+}
+
+.categoryNav {
+    background-color: #E0DEDE;
+    font-weight: 600;
+}
+
+.categoryNavText {
+    color: rgb(255, 255, 255) !important;
     background-color: #0F3F51;
+}
+
+.categoryNavText:hover {
+    background-color: #245668;
+}
+
+.categories {
+    color: #0F3F51 !important;
 }
 
 .post-button {

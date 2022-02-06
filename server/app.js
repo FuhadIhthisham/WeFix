@@ -5,6 +5,7 @@ const env = require("dotenv");
 env.config();
 
 const userRouter = require('./routes/userRouter')
+const workerRouter = require('./routes/workerRouter')
 
 const db = require("./config/connection");
 
@@ -13,13 +14,15 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-origin: 'http://localhost:3001',
-credentials: true
+    origin: ['http://localhost:3001','http://localhost:3002'],
+    credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", userRouter)
+app.use("/worker", workerRouter)
 
 
 // MongoDB connection

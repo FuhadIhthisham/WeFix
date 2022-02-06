@@ -1,0 +1,25 @@
+.otpInput{
+    background-color: #224957;
+    border: none;
+    border-radius: 10px;
+    font-size: 2em;
+    color: white !important;
+    width: 365px !important;
+    letter-spacing: 1em;
+    height: 60px !important;
+    padding-left: 40px !important;
+}
+
+.otpHead {
+    font-size: 2.5em;
+    text-align: center;
+    color: white;
+}
+
+
+.otpInput:focus{
+    background-color: #224957;
+    color: white;
+    font-weight: 800;
+    border: none;
+}

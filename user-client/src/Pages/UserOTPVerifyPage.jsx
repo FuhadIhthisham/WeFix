@@ -3,7 +3,7 @@ import LoginNavBar from '../Components/Navbar/Navbar'
 import OTPVerifyForm from '../Components/VerifyOTP/VerifyOTP'
 
 
-function UserSignupPage(){
+function OTPVerificationPage(){
 
     return(
         <Fragment>
@@ -13,4 +13,4 @@ function UserSignupPage(){
     )
 }
 
-export default UserSignupPage
+export default OTPVerificationPage

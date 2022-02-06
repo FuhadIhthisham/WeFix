@@ -7,7 +7,7 @@ const config = {
 }
 
 export const verifyOTP = async (otp) => {
-    try {
+    try {   
         const { data } = await axios.post('/verifyOTP', {
             emailOTP: otp
         }, config )
