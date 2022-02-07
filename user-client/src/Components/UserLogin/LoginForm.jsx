@@ -1,29 +1,64 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "./UserLoginForm.css";
-import validate from "./LoginValidation";
-import axios from "axios";
+import validate from "./LoginValidation"; // Validate login data
+import { verifyLogin, verifyGoogleLogin } from "../../Helpers/axios";
 import { Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+import { googleClientId } from '../../secretKey'
+import { GoogleLogin } from "react-google-login"; // for google authentication
+
+// Redux state manage to store
 import { useDispatch } from "react-redux";
 import { add_user } from "../../Redux/userDetails/userDetailsSlice";
+
 
 function LoginForm() {
   const initialValues = { email: "", password: "" };
   const [formValues, setformValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({}); // store form validation errors
   const [isSubmit, setIsSubmit] = useState(false);
-  const [authError, setAuthError] = useState(false);
+  const [authError, setAuthError] = useState(false); // store form authentication errors
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
+  // Handle changes in input fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setformValues({ ...formValues, [name]: value });
   };
 
+  // Google secret clientId
+  const clientId = googleClientId
+
+  // response from google login
+  const onSuccess = (response) => {
+    verifyGoogleLogin(response.profileObj)
+      .then((data) => {
+        localStorage.setItem("sessionToken", JSON.stringify({ data }));
+        // adding userdata to redux state
+        data.username = data.firstName
+        delete data.firstName
+        delete data.lastName
+        dispatch(
+          add_user({
+            ...data
+          })
+        );
+        navigate("/");
+      })
+      .catch((err) => {
+        setAuthError("User not found")
+      })
+  };
+  const onFailure = (response) => {
+    setAuthError("Authentication Failed")
+  };
+
+  useEffect(() => {}, []);
+
+  // submit form
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
@@ -32,32 +67,22 @@ function LoginForm() {
 
   useEffect(async () => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        const { data } = await axios.post(
-          "/login",
-          {
-            email: formValues.email,
-            password: formValues.password,
-          },
-          config
-        );
+      verifyLogin(formValues)
+        .then((data) => {
+          // creating session token in localstorage
+          localStorage.setItem("sessionToken", JSON.stringify({ data }));
 
-        dispatch(
-          add_user({
-            ...data,
-          })
-        );
-
-        localStorage.setItem("sessionToken", JSON.stringify({ data }));
-        navigate("/");
-      } catch (err) {
-        setAuthError(err.response.data.message);
-      }
+          // adding userdata to redux state
+          dispatch(
+            add_user({
+              ...data,
+            })
+          );
+          navigate("/");
+        })
+        .catch((err) => {
+          setAuthError(err.response.data.message);
+        });
     }
   }, [formErrors]);
 
@@ -124,14 +149,18 @@ function LoginForm() {
             <button className="btn btn-primary login-btn">Login</button>
           </div>
           <div className="col-12">
-            <button type="button" className="btn btn-primary google-login">
-              <img
-                src="../images/googleLogo.png"
-                className="mb-1 me-2 googleLogoImage"
-                alt="google"
-              />
+            {/* <button type="button" className="btn btn-primary google-login">
               Continue with Google
-            </button>
+            </button> */}
+
+            <GoogleLogin
+              className="google-login"
+              clientId={clientId}
+              buttonText="Login with Google"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={"single_host_origin"}
+            />
           </div>
         </form>
       </div>

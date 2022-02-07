@@ -12,6 +12,7 @@ const userHome = asyncHandler(async (req, res) => {
 
 var userData
 var userOTP
+// User signup
 const userSignup = asyncHandler(async (req, res) => {
     var userEmail = req.body.email
     userHelper.userExist(req.body).then(async(result) => {
@@ -36,6 +37,23 @@ const userSignup = asyncHandler(async (req, res) => {
             else{
                 res.status(400).json({message: 'Message sent error'})
             }
+        }
+    })
+})
+
+// user google authentication signup
+const userGoogleSignup = asyncHandler(async (req, res) => {
+    userHelper.userExist(req.body).then(async(result) => {
+        if(result.emailExist){
+            res.status(409).json({ message: 'Email already exist' })
+        }
+        else if(result.usernameExist){
+            res.status(409).json({ message: 'Username already exist' })
+        }
+        else{
+            userHelper.googleSignupUser(req.body).then((result)=>{
+                res.status(201).json({success: true})
+            })
         }
     })
 })
@@ -68,4 +86,19 @@ const userLogin = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { userHome, userSignup, userLogin, verifyOTP }
+const userGoogleLogin = asyncHandler(async (req, res) => {
+    userHelper.googleLoginUser(req.body).then((result)=>{
+        if(result.user){
+            result.user.token = generateToken(result.user._id)
+            delete result.user._id
+            res.status(200).json(result.user)
+        }
+        else{
+            res.status(404).json({message: 'User not Found!'})
+        }
+    })
+})
+
+
+
+module.exports = { userHome, userSignup, userLogin, verifyOTP, userGoogleLogin, userGoogleSignup }

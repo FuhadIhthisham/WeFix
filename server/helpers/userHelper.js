@@ -10,13 +10,15 @@ module.exports = {
     // find user exist or not
     userExist: (userData) => {
         return new Promise(async (resolve, reject)=>{
+            let usernameExist = null
             let emailExist = await db.get().collection(collections.USER_COLLECTION).findOne({
                 email: userData.email 
             })
-
-            let usernameExist = await db.get().collection(collections.USER_COLLECTION).findOne({
-                username: userData.username 
-            })
+            if(userData.username){
+                usernameExist = await db.get().collection(collections.USER_COLLECTION).findOne({
+                    username: userData.username 
+                })
+            }
 
             if(emailExist){
                 resolve({emailExist: true})
@@ -47,6 +49,24 @@ module.exports = {
         })
     },
 
+    // google authenticate signup user
+    googleSignupUser: (userData) =>{
+        return new Promise(async (resolve, reject)=>{
+            userData.date = new Date()
+            db.get().collection(collections.USER_COLLECTION).insertOne({
+                email: userData.email,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                googleId: userData.googleId,
+                joinDate: userData.date
+            }).then((res)=>{
+                resolve({
+                status: true
+                })
+            })
+        })
+    },
+
     loginUser: (loginData) =>{
         return new Promise(async (resolve, reject) => {
             let response = {}
@@ -57,6 +77,10 @@ module.exports = {
                     { username: loginData.email }
                 ]
             })
+
+            if(user.googleId){
+                resolve({ loginFailed: true })
+            }
 
             if(user){
                 bcryptjs.compare(loginData.password, user.password).then((status) => {
@@ -72,6 +96,33 @@ module.exports = {
                         resolve({ loginFailed: true })
                     }
                 })
+            }
+            else {
+                console.log("User not found");
+                resolve({ notFound: true })
+            }
+        })
+    },
+
+
+    googleLoginUser: (loginData) =>{
+        return new Promise(async (resolve, reject) => {
+            let response = {}
+
+            let user = await db.get().collection(collections.USER_COLLECTION)
+                .findOne(
+                    {
+                        email: loginData.email ,
+                        googleId: loginData.googleId
+                    }
+                )
+
+            if(user){
+                delete user.joinDate
+                delete user.googleId
+                response.user = user
+                console.log("Login Success");
+                resolve(response)
             }
             else {
                 console.log("User not found");

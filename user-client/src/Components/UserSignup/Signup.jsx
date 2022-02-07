@@ -1,10 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import signupValidate from "./SignupValidation";
+import signupValidate from "./SignupValidation"; // validate signup datas
 
 import "./Signup.css";
 import Alert from "@mui/material/Alert";
+
+
+import { verifyUserSignup, verifyUserGoogleSignup } from '../../Helpers/axios'
+import { googleClientId } from '../../secretKey'
+import GoogleLogin from "react-google-login";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -16,6 +20,9 @@ function SignupForm() {
     retypePass: "",
   };
 
+  //secret client id for google authentication
+  const clientId = googleClientId
+
   const [signupValues, setSignupValues] = useState(initialValues);
   const [signupErrors, setSignupErrors] = useState({});
   const [authError, setAuthError] = useState(false);
@@ -26,6 +33,21 @@ function SignupForm() {
     setSignupValues({ ...signupValues, [name]: value });
   };
 
+  // Response from google signup
+  const onSuccess = (res) => {
+    verifyUserGoogleSignup(res.profileObj)
+      .then((data) => {
+        navigate('/login')
+      })
+      .catch((err) => {
+        setAuthError(err.response.data.message);
+      })
+  }
+
+  const onFailure = (res) => {
+    console.log(res);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSignupErrors(signupValidate(signupValues));
@@ -34,28 +56,14 @@ function SignupForm() {
 
   useEffect(async () => {
     if (Object.keys(signupErrors).length === 0 && isSubmit) {
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-
-        const { data } = await axios.post(
-          "/signup",
-          {
-            username: signupValues.username,
-            email: signupValues.email,
-            password: signupValues.password,
-          },
-          config
-        );
-
-        setSignupValues(initialValues);
-        navigate("/verifyOTP");
-      } catch (err) {
-        setAuthError(err.response.data.message);
-      }
+      verifyUserSignup(signupValues)
+        .then((data) => {
+          setSignupValues(initialValues);
+          navigate("/verifyOTP");
+        })
+        .catch((err) => {
+          setAuthError(err.response.data.message);
+        })
     }
   }, [signupErrors]);
 
@@ -150,14 +158,23 @@ function SignupForm() {
             <button className="btn btn-primary login-btn">Signup</button>
           </div>
           <div className="col-12">
-            <button type="button" className="btn btn-primary google-login">
+            {/* <button type="button" className="btn btn-primary google-login">
               <img
                 src="../images/googleLogo.png"
                 className="mb-1 me-2 googleLogoImage"
                 alt="google"
               />
               Continue with Google
-            </button>
+            </button> */}
+
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Signup with Google"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={"single_host_origin"}
+            />
+
           </div>
         </form>
       </div>

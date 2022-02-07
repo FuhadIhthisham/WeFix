@@ -60,20 +60,8 @@ body {
 }
 
 .google-login{
-    background-color: #2D3748;
-    border-radius: 10px;
-    font-size: medium;
-    font-weight: bolder;
     width: 350px;
     border: none;
-}
-
-.googleLogoImage {
-    width: 30px;
-}
-
-.google-login:hover{
-    background-color: #2b323fb2;
 }
 
 .errors {
