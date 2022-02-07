@@ -11,16 +11,16 @@ body {
 .signinText {
     font-size: 2.5em;
     text-align: center;
-    color: white;
+    color: #224957;
 }
 
 .loginDescription {
-    color: white;
-    text-align: center  ;
+    color: #224957;
+    text-align: center;
 }
 
 .loginInput{
-    background-color: #224957;
+    background-color: #6d7a74a4;
     border: none;
     border-radius: 10px;
     color: white;
@@ -30,7 +30,7 @@ body {
 }
 
 .loginInput:focus{
-    background-color: #224957;
+    background-color: #6d7a74a4;
     color: white;
     font-weight: 800;
     border: none;
@@ -43,41 +43,25 @@ body {
 }
 
 .login-btn {
-    background-color: #20DF7F;
+    background-color: #224957;
     border-radius: 10px;
     font-size: larger;
-    border: none;
     font-weight: bolder;
+    border: none;
     width: 350px;
 }
 
 .login-btn:hover{
-    background-color: #20df8096;
-}
-
-.loginForgot {
-    color: #20DF7F;
-    font-weight: bold;
-}
-
-.google-login{
-    background-color: #2D3748;
-    border-radius: 10px;
-    font-size: medium;
-    font-weight: bolder;
-    width: 350px;
-    border: none;
-}
-
-.googleLogoImage {
-    width: 30px;
-}
-
-.google-login:hover{
-    background-color: #2b323fb2;
+    background-color: rgb(28, 58, 70)
 }
 
 .errors {
-    color: #20DF7F;
+    color: #224957;
     margin-top: 5px;
+}
+
+.adminLoginForm {
+    background-color: #e4e1e19b;
+    padding:70px;
+    border-radius:40px
 }

@@ -6,6 +6,7 @@ env.config();
 
 const userRouter = require('./routes/userRouter')
 const workerRouter = require('./routes/workerRouter')
+const adminRouter = require('./routes/adminRouter')
 
 const db = require("./config/connection");
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", userRouter)
 app.use("/worker", workerRouter)
+app.use("/admin", adminRouter)
 
 
 // MongoDB connection

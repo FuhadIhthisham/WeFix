@@ -1,0 +1,53 @@
+.navLogo {
+    width: 120px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.navBackground {
+    background-color: #0F3F51 !important;
+}
+
+.categoryNav {
+    background-color: #E0DEDE;
+    font-weight: 600;
+}
+
+.categoryNavText {
+    color: rgb(255, 255, 255) !important;
+    background-color: #0F3F51;
+}
+
+.categoryNavText:hover {
+    background-color: #245668;
+}
+
+.categories {
+    color: #0F3F51 !important;
+}
+
+.post-button {
+    background-color: #1a5b729b !important;
+    border-radius: 30px;
+    height: 2.5em;
+    font-weight: 900;
+}
+
+.profilePic {
+    width: 30px;
+    height: 30px;
+}
+
+.notificationIcon {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.notificationCount {
+    margin-left: -10px;
+}
+
+.navDropDown{
+    margin-right: 3.5em;
+}
